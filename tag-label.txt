@@ -1,0 +1,45 @@
+-Ambiente e ruolo dell’applicazione:  
+
+		.Ambiente: ”sviluppo”, “test”, “produzione” 
+
+		.Ruolo: “frontend”, ”backend”, ”database” 
+
+-Applicazione o servizio
+
+    ."app-wen", "app-api", "notifiche"
+
+-Proprietario e team 
+
+    ."owner", "collaborator", "partner"
+
+    .Nel caso ci fossero più team dividerli in base ai compiti: "Developer", "Design", "Managing"
+
+-Ambito di progetto o cliente 
+
+    .Definire i possibili ambiti di progetto
+
+    .Definire se ci sono o meno clienti a cui fare riferimento
+
+-Tipologia di risorse: 
+
+    .”istanza VM”, ”archiviazione”, ”rete”
+
+-Tecnologia utilizzata
+
+    ."java", "nodejs", "mongodb"
+
+-Stato della risorsa:
+
+    ."attivo", "inattivo2, "in uso"
+
+... OPZIONALI ... 
+
+-Livello di priorità 
+
+    ."Alto", "Medio", "Basso"
+
+-Cost budget 
+
+-Gruppi di affinità logiche tra risorse  
+
+-Scadenze (e periodi di utilizzo) 
