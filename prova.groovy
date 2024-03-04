@@ -7,6 +7,8 @@ pipeline {
         OPENSHIFT_PROJECT = "<nome-progetto-ocp>"
         APPLICATION_NAME = "<nome-applicazione>"
         DOCKER_IMAGE = "<immagine-docker>"
+        CREDENTIALS_ID = "OCP-token"
+        TOKEN=""
     }
 
     stages {
@@ -28,9 +30,14 @@ pipeline {
         stage('Deploy to OpenShift') {
             steps {
                 script {
-                    sh 'oc login --token=sha256~jvtAJzi7ld6w6FoeJkzY3VOY3vsO6xmDaIHEANmRzbA --server=https://c100-e.eu-de.containers.cloud.ibm.com:31696'
 
-                    sh 'oc projects'
+                    withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
+                        TOKEN = env.TOKEN
+                    }
+
+                    sh "oc login --token=${TOKEN} --server=https://c100-e.eu-de.containers.cloud.ibm.com:31696"
+
+                    //sh 'oc projects'
 
                     //sh 'oc project ${OPENSHIFT_PROJECT}'
 
