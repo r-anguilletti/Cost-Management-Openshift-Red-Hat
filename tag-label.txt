@@ -20,7 +20,7 @@
 
     .Definire se ci sono o meno clienti a cui fare riferimento
 
--Tipologia di risorse: 
+-Tipologia di risorse:
 
     .”istanza VM”, ”archiviazione”, ”rete”
 

@@ -3,12 +3,15 @@ pipeline {
 
     environment {
 		//da modificare nel moento in cui si vuole fare il deployment
-        OPENSHIFT_URL = "https://<indirizzo-ocp>"
+        OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "<nome-progetto-ocp>"
         APPLICATION_NAME = "<nome-applicazione>"
         DOCKER_IMAGE = "<immagine-docker>"
         CREDENTIALS_ID = "OCP-token"
         TOKEN=""
+        DOCKER_REGISTRY_CREDENTIALS_ID = 'NomeCredenzialiDockerRegistry'
+        APP_IMAGE_NAME = 'nome-immagine-pre-build'
+        APP_IMAGE_TAG = 'tag-immagine-pre-build'
     }
 
     stages {
@@ -27,25 +30,47 @@ pipeline {
             }
         }*/
 
+        stage('Login to OCP'){
+            steps{
+                withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
+                        TOKEN = env.TOKEN
+                    }
+
+                    sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"
+            }
+        }
+
+         /*stage('Login al Docker Registry') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: DOCKER_REGISTRY_CREDENTIALS_ID, passwordVariable: 'DOCKER_REGISTRY_TOKEN', usernameVariable: 'DOCKER_REGISTRY_USERNAME')]) {
+                        sh "docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_TOKEN} registry.example.com"
+                    }
+                }
+            }
+        }*/
+
         stage('Deploy to OpenShift') {
             steps {
                 script {
 
-                    withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
-                        TOKEN = env.TOKEN
-                    }
+                    sh "oc project ${OPENSHIFT_PROJECT}"
 
-                    sh "oc login --token=${TOKEN} --server=https://c100-e.eu-de.containers.cloud.ibm.com:31696"
+                    //sh "oc new-app ${DOCKER_IMAGE} --name=${APPLICATION_NAME}"
 
-                    //sh 'oc projects'
+                    //sh "oc apply -f path/to/tuo/file-di-configurazione.yaml"
 
-                    //sh 'oc project ${OPENSHIFT_PROJECT}'
+                    //sh "oc set image deployment/${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
 
-                    //sh 'oc new-app ${DOCKER_IMAGE} --name=${APPLICATION_NAME}'
-
-					//sh 'oc expose service ${APPLICATION_NAME}'
+					//sh "oc expose service ${APPLICATION_NAME}"
                 }
             }
+        }
+    }
+
+    post {
+        always{
+            sh "oc logout"
         }
     }
 }
