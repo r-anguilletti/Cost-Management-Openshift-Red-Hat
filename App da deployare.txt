@@ -1,0 +1,23 @@
+Frontend Web:
+
+    React, Angular o Vue.
+
+Backend API:
+
+    Un servizio API che gestisce la logica di business. Implementato con Node.js, Django
+
+Database:
+
+    Un database relazionale o NoSQL per archiviare i dati dell'applicazione. Ad esempio, PostgreSQL o MongoDB
+
+Servizio di Notifiche:
+
+    Un componente che gestisce l'invio di notifiche agli utenti, magari utilizzando una coda di messaggi come Apache Kafka
+
+Servizio di Elaborazione Batch:
+
+    Un componente che esegue processi batch. Implementato utilizzando Apache Spark
+
+Cache:
+
+    Un servizio di caching, come Redis, per migliorare le prestazioni dell'applicazione.
