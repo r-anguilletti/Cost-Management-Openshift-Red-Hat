@@ -71,7 +71,6 @@ pipeline {
         stage('Deploy to OpenShift') {
             steps {
                 script {
-
                     sh "oc project ${OPENSHIFT_PROJECT}"
 
                     //sh "oc new-app ${DOCKER_IMAGE} --name=${APPLICATION_NAME}"
