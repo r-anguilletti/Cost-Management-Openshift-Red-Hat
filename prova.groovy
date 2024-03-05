@@ -5,13 +5,15 @@ pipeline {
 		//da modificare nel moento in cui si vuole fare il deployment
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
-        APPLICATION_NAME = "<nome-applicazione>"
-        DOCKER_IMAGE = "<immagine-docker>"
+        OPENSHIFT_NAME_APP = ""
+        DOCKER_IMAGE_NAME_TAG = "registry.connect.redhat.com/mongodb/mongodb-enterprise-appdb-database:5.0.7-ent"
+        DOCKER_URL = "registry.connect.redhat.com"
+        APPLICATION_NAME = "MongoDB"
         CREDENTIALS_ID = "OCP-token"
+        CREDENTIALS_DOCKER = "RH-login"
+        USERNAME = ""
+        PASSWORD = ""
         TOKEN=""
-        DOCKER_REGISTRY_CREDENTIALS_ID = 'NomeCredenzialiDockerRegistry'
-        APP_IMAGE_NAME = 'nome-immagine-pre-build'
-        APP_IMAGE_TAG = 'tag-immagine-pre-build'
     }
 
     /*parameters {
@@ -25,16 +27,25 @@ pipeline {
             steps {
                 git 'https://github.com/r-anguilletti/Cost-Management-Openshift-Red-Hat'
             }
-        }
+        }*/
 
-        stage('Build and Push Docker Image') {
-            //non ho idea di come farlo
-            steps {
-                script {
-                    sh 'll'
+        stage('Docker login (RH repository)'){
+            steps{
+                script{
+                    withCredentials([usernamePassword(cedentialsID: CREDENTIALS_DOCKER, passwordVariable: PASSWORD, usernameVariable: USERNAME)]){
+                        sh "docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_URL}"
+                    }
                 }
             }
-        }*/
+        }
+
+        stage('Download docker image') {
+            steps {
+                script {
+                    sh "docker pull ${DOCKER_IMAGE_NAME_TAG}"
+                }
+            }
+        }
 
         stage('Login to OCP'){
             steps{
@@ -48,17 +59,7 @@ pipeline {
             }
         }
 
-         /*stage('Login al Docker Registry') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: DOCKER_REGISTRY_CREDENTIALS_ID, passwordVariable: 'DOCKER_REGISTRY_TOKEN', usernameVariable: 'DOCKER_REGISTRY_USERNAME')]) {
-                        sh "docker login -u ${DOCKER_REGISTRY_USERNAME} -p ${DOCKER_REGISTRY_TOKEN} registry.example.com"
-                    }
-                }
-            }
-        }*/
-
-        stage('Access to parameters'){
+        /*stage('Access to parameters'){
             steps{
                 script{
                     def prova=params.c
@@ -66,12 +67,14 @@ pipeline {
                     echo "${c}" //posso usare anche solo il nome del parametro nella definizione
                 }
             }
-        }
+        }*/
 
         stage('Deploy to OpenShift') {
             steps {
                 script {
                     sh "oc project ${OPENSHIFT_PROJECT}"
+
+                    sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG}"
 
                     //sh "oc new-app ${DOCKER_IMAGE} --name=${APPLICATION_NAME}"
 
@@ -83,6 +86,24 @@ pipeline {
                 }
             }
         }
+
+        /*stage('Operazioni su Parametro Multi-Riga') { //quando si usa la pipe per fare il deploy si specificano tutte le label su un parametro multi riga
+            steps {
+                script {
+                    // Accedi al parametro multi-riga
+                    def multiLineParam = params.MULTI_LINE_PARAM
+
+                    // Splitta le righe in un elenco
+                    def lines = multiLineParam.tokenize('\n')
+
+                    // Itera su ogni riga e fai ciò che desideri
+                    for (def line : lines) {
+                        echo "Riga: ${line}"
+
+                    }
+                }
+            }
+        }*/
     }
 
     /*post {
