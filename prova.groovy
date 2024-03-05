@@ -33,7 +33,6 @@ pipeline {
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: CREDENTIALS_DOCKER, passwordVariable: "PASSWORD", usernameVariable: "USERNAME")]){
-                        sh "podman"
                         sh "docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_URL}"
                     }
                 }
