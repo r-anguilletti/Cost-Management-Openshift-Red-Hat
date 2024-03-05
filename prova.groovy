@@ -15,7 +15,7 @@ pipeline {
     }
 
     /*parameters {
-        string(name: 'c', defaultValue: 'ciao')
+        string(name: 'c', defaultValue: 'ciao') //definire solo i paramentri che potrebbero servire e non sono stati passati da configurazione
     }*/
 
     stages {
