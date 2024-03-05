@@ -4,7 +4,7 @@ pipeline {
     environment {
 		//da modificare nel moento in cui si vuole fare il deployment
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
-        OPENSHIFT_PROJECT = "<nome-progetto-ocp>"
+        OPENSHIFT_PROJECT = "hello-world"
         APPLICATION_NAME = "<nome-applicazione>"
         DOCKER_IMAGE = "<immagine-docker>"
         CREDENTIALS_ID = "OCP-token"
