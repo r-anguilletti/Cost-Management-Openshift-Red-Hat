@@ -14,6 +14,10 @@ pipeline {
         APP_IMAGE_TAG = 'tag-immagine-pre-build'
     }
 
+    parameters {
+        string(name: 'c', defultValue: 'ciao')
+    }
+
     stages {
         /*stage('Clone Repository') {
             steps {
@@ -28,7 +32,7 @@ pipeline {
                     sh 'll'
                 }
             }
-        }*/
+        }
 
         stage('Login to OCP'){
             steps{
@@ -38,7 +42,7 @@ pipeline {
 
                     sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"
             }
-        }
+        }*/
 
          /*stage('Login al Docker Registry') {
             steps {
@@ -50,7 +54,12 @@ pipeline {
             }
         }*/
 
-        stage('Deploy to OpenShift') {
+        stage('Access to parameters'){
+            def prova="${params['c']}"
+            echo "${prova}"
+        }
+
+        /*stage('Deploy to OpenShift') {
             steps {
                 script {
 
@@ -60,7 +69,7 @@ pipeline {
 
                     //sh "oc apply -f path/to/tuo/file-di-configurazione.yaml"
 
-                    //sh "oc set image deployment/${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
+                    //sh "oc set image deployment ${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
 
 					//sh "oc expose service ${APPLICATION_NAME}"
                 }
@@ -72,6 +81,6 @@ pipeline {
         always{
             sh "oc logout"
         }
-    }
+    }*/
 }
 //proposte due verisoni

@@ -1,8 +1,8 @@
 -Ambiente e ruolo dell’applicazione:  
 
-		.Ambiente: ”sviluppo”, “test”, “produzione” 
-
-		.Ruolo: “frontend”, ”backend”, ”database” 
+	.Ambiente: ”sviluppo”, “test”, “produzione” 
+    
+	.Ruolo: “frontend”, ”backend”, ”database” 
 
 -Applicazione o servizio
 
