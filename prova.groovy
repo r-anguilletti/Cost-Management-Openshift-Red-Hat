@@ -16,6 +16,8 @@ pipeline {
 
     /*parameters {
         string(name: 'c', defaultValue: 'ciao') //definire solo i paramentri che potrebbero servire e non sono stati passati da configurazione
+        string(name: 'Ambiente', defaultValue: 'none')
+        string(name: 'Ruolo', defaultValue: 'none')
     }*/
 
     stages {
@@ -37,7 +39,7 @@ pipeline {
         stage('Login to OCP'){
             steps{
                 withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
-                        TOKEN = env.TOKEN
+                        TOKEN = env.TOKEN //il token va aggiornato a mano nelle configurazioni della pipe
                     }
 
                     sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"

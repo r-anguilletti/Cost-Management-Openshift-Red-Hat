@@ -1,7 +1,7 @@
 -Ambiente e ruolo dell’applicazione:  
 
 	.Ambiente: ”sviluppo”, “test”, “produzione” 
-    
+
 	.Ruolo: “frontend”, ”backend”, ”database” 
 
 -Applicazione o servizio
@@ -30,7 +30,7 @@
 
 -Stato della risorsa:
 
-    ."attivo", "inattivo2, "in uso"
+    ."attivo", "inattivo", "in uso"
 
 ... OPZIONALI ... 
 
