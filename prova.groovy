@@ -74,10 +74,10 @@ pipeline {
 					//sh "oc expose service ${APPLICATION_NAME}"
                 }
             }
-        }
+        }*/
     }
 
-    post {
+    /*post {
         always{
             sh "oc logout"
         }
