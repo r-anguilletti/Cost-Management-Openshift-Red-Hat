@@ -61,6 +61,7 @@ pipeline {
                 script{
                     def prova=params.c
                     echo "${prova}"
+                    echo "${c}"
                 }
             }
         }
