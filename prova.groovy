@@ -32,7 +32,7 @@ pipeline {
         stage('Docker login (RH repository)'){
             steps{
                 script{
-                    withCredentials([usernamePassword(cedentialsID: CREDENTIALS_DOCKER, passwordVariable: PASSWORD, usernameVariable: USERNAME)]){
+                    withCredentials([usernamePassword(cedentialsID: CREDENTIALS_DOCKER, passwordVariable: "PASSWORD", usernameVariable: "USERNAME")]){
                         sh "docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_URL}"
                     }
                 }
