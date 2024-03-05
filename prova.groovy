@@ -55,7 +55,7 @@ pipeline {
         }*/
 
         stage('Access to parameters'){
-            def prova="${params['c']}"
+            def prova=params.c
             echo "${prova}"
         }
 
