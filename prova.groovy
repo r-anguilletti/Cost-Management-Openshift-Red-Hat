@@ -34,7 +34,7 @@ pipeline {
                     sh 'll'
                 }
             }
-        }
+        }*/
 
         stage('Login to OCP'){
             steps{
@@ -44,7 +44,7 @@ pipeline {
 
                     sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"
             }
-        }*/
+        }
 
          /*stage('Login al Docker Registry') {
             steps {
@@ -61,12 +61,12 @@ pipeline {
                 script{
                     def prova=params.c
                     echo "${prova}"
-                    echo "${c}"
+                    echo "${c}" //posso usare anche solo il nome del parametro nella definizione
                 }
             }
         }
 
-        /*stage('Deploy to OpenShift') {
+        stage('Deploy to OpenShift') {
             steps {
                 script {
 
@@ -81,7 +81,7 @@ pipeline {
 					//sh "oc expose service ${APPLICATION_NAME}"
                 }
             }
-        }*/
+        }
     }
 
     /*post {
