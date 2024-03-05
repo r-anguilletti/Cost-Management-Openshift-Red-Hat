@@ -14,9 +14,9 @@ pipeline {
         APP_IMAGE_TAG = 'tag-immagine-pre-build'
     }
 
-    parameters {
+    /*parameters {
         string(name: 'c', defaultValue: 'ciao')
-    }
+    }*/
 
     stages {
         /*stage('Clone Repository') {
