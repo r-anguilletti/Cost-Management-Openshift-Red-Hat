@@ -38,11 +38,13 @@ pipeline {
 
         stage('Login to OCP'){
             steps{
-                withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
-                        TOKEN = env.TOKEN //il token va aggiornato a mano nelle configurazioni della pipe
-                    }
+                script{
+                    withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
+                            TOKEN = env.TOKEN //il token va aggiornato a mano nelle configurazioni della pipe
+                        }
 
-                    sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"
+                        sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"
+                }
             }
         }
 
