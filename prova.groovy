@@ -83,4 +83,3 @@ pipeline {
         }
     }*/
 }
-//proposte due verisoni
