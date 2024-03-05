@@ -15,7 +15,7 @@ pipeline {
     }
 
     parameters {
-        string(name: 'c', defultValue: 'ciao')
+        string(name: 'c', defaultValue: 'ciao')
     }
 
     stages {
@@ -55,8 +55,12 @@ pipeline {
         }*/
 
         stage('Access to parameters'){
-            def prova=params.c
-            echo "${prova}"
+            steps{
+                script{
+                    def prova=params.c
+                    echo "${prova}"
+                }
+            }
         }
 
         /*stage('Deploy to OpenShift') {
