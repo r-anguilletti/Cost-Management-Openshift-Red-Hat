@@ -6,7 +6,7 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "registry.connect.redhat.com/mongodb/mongodb-enterprise-appdb-database:5.0.7-ent"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/mongo"
         DOCKER_URL = "registry.connect.redhat.com"
         APPLICATION_NAME = "MongoDB"
         CREDENTIALS_ID = "OCP-token"
@@ -29,7 +29,7 @@ pipeline {
             }
         }*/
 
-        stage('Docker login (RH repository)'){
+        /*stage('Docker login (RH repository)'){
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: CREDENTIALS_DOCKER, passwordVariable: "PASSWORD", usernameVariable: "USERNAME")]){
@@ -45,7 +45,7 @@ pipeline {
                     sh "docker pull ${DOCKER_IMAGE_NAME_TAG}"
                 }
             }
-        }
+        }*/
 
         stage('Login to OCP'){
             steps{
