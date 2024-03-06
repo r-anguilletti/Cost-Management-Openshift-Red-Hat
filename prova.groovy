@@ -9,7 +9,7 @@ pipeline {
         DOCKER_IMAGE_NAME_TAG = "docker.io/nginx"
         DOCKER_URL = "registry.connect.redhat.com"
         APPLICATION_NAME = "nginx"
-        CREDENTIALS_ID = "OPC-API_KEY"
+        CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
 
