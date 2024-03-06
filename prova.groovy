@@ -51,7 +51,7 @@ pipeline {
                             TOKEN = env.TOKEN //il token va aggiornato a mano nelle configurazioni della pipe
                         }
 
-                        sh "oc login --apikey ${TOKEN}"
+                        sh "oc login -u apikey -p ${TOKEN}"
                 }
             }
         }
