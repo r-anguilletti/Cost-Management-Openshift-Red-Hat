@@ -6,8 +6,7 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "https://github.com/IBM/cloud-pak"
-        DOCKER_URL = "registry.connect.redhat.com"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/hello-world:latest"
         APPLICATION_NAME = "hello"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
@@ -78,6 +77,7 @@ pipeline {
                     //sh "oc apply -f path/to/tuo/file-di-configurazione.yaml"
 
                     //sh "oc set image deployment ${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
+
 
 					//sh "oc expose service ${APPLICATION_NAME}"
                 }
