@@ -4,11 +4,11 @@ pipeline {
     environment {
 		//da modificare nel moento in cui si vuole fare il deployment
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
-        OPENSHIFT_PROJECT = "docker"
+        OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/httpd"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/python"
         DOCKER_URL = "registry.connect.redhat.com"
-        APPLICATION_NAME = "httpd"
+        APPLICATION_NAME = "python"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
