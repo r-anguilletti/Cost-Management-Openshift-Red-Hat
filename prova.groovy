@@ -6,9 +6,9 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/nginx"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/hello-world"
         DOCKER_URL = "registry.connect.redhat.com"
-        APPLICATION_NAME = "nginx"
+        APPLICATION_NAME = "ciao_mondo"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
@@ -64,7 +64,7 @@ pipeline {
                     echo "${c}" //posso usare anche solo il nome del parametro nella definizione
                 }
             }
-        }
+        }*/
 
         stage('Deploy to OpenShift') {
             steps {
@@ -80,7 +80,7 @@ pipeline {
 					//sh "oc expose service ${APPLICATION_NAME}"
                 }
             }
-        }*/
+        }
 
         /*stage('Operazioni su Parametro Multi-Riga') { //quando si usa la pipe per fare il deploy si specificano tutte le label su un parametro multi riga
             steps {
