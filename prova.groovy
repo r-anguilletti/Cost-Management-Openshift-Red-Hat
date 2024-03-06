@@ -9,10 +9,7 @@ pipeline {
         DOCKER_IMAGE_NAME_TAG = "docker.io/nginx"
         DOCKER_URL = "registry.connect.redhat.com"
         APPLICATION_NAME = "nginx"
-        CREDENTIALS_ID = "OCP-token"
-        CREDENTIALS_DOCKER = "RH-login"
-        USERNAME = ""
-        PASSWORD = ""
+        CREDENTIALS_ID = "OCP-API_KEY"
         TOKEN=""
     }
 
@@ -54,7 +51,7 @@ pipeline {
                             TOKEN = env.TOKEN //il token va aggiornato a mano nelle configurazioni della pipe
                         }
 
-                        sh "oc login --token=${TOKEN} --server=${OPENSHIFT_URL}"
+                        sh "oc login --apikey ${TOKEN}"
                 }
             }
         }
@@ -67,7 +64,7 @@ pipeline {
                     echo "${c}" //posso usare anche solo il nome del parametro nella definizione
                 }
             }
-        }*/
+        }
 
         stage('Deploy to OpenShift') {
             steps {
@@ -83,7 +80,7 @@ pipeline {
 					//sh "oc expose service ${APPLICATION_NAME}"
                 }
             }
-        }
+        }*/
 
         /*stage('Operazioni su Parametro Multi-Riga') { //quando si usa la pipe per fare il deploy si specificano tutte le label su un parametro multi riga
             steps {
