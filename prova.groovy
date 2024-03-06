@@ -4,7 +4,7 @@ pipeline {
     environment {
 		//da modificare nel moento in cui si vuole fare il deployment
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
-        OPENSHIFT_PROJECT = "hello-world"
+        OPENSHIFT_PROJECT = "docker"
         OPENSHIFT_NAME_APP = ""
         DOCKER_IMAGE_NAME_TAG = "docker.io/hello-world"
         DOCKER_URL = "registry.connect.redhat.com"
