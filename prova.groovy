@@ -6,9 +6,9 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "docker"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/hello-world"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/httpd"
         DOCKER_URL = "registry.connect.redhat.com"
-        APPLICATION_NAME = "ciaomondo"
+        APPLICATION_NAME = "httpd"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
@@ -81,24 +81,6 @@ pipeline {
                 }
             }
         }
-
-        /*stage('Operazioni su Parametro Multi-Riga') { //quando si usa la pipe per fare il deploy si specificano tutte le label su un parametro multi riga
-            steps {
-                script {
-                    // Accedi al parametro multi-riga
-                    def multiLineParam = params.MULTI_LINE_PARAM
-
-                    // Splitta le righe in un elenco
-                    def lines = multiLineParam.tokenize('\n')
-
-                    // Itera su ogni riga e fai ciò che desideri
-                    for (def line : lines) {
-                        echo "Riga: ${line}"
-
-                    }
-                }
-            }
-        }*/
     }
 
     /*post {
