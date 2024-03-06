@@ -6,9 +6,9 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/python"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/hello-world:latest"
         DOCKER_URL = "registry.connect.redhat.com"
-        APPLICATION_NAME = "python"
+        APPLICATION_NAME = "hello"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
