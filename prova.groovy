@@ -6,7 +6,7 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "mongodb/mongodb-atlas-kubernetes-operator-bundle"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/hello-world"
         DOCKER_URL = "registry.connect.redhat.com"
         APPLICATION_NAME = "hello"
         CREDENTIALS_ID = "OCP-API-KEY"
@@ -74,13 +74,15 @@ pipeline {
                     //sh "oc new-app --name=${APPLICATION_NAME} ${DOCKER_IMAGE_NAME_TAG}"
 
 
-                    sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG}"
+                    //sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG}"
 
                     //sh "oc apply -f path/to/tuo/file-di-configurazione.yaml"
 
                     //sh "oc set image deployment ${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
 
-					sh "oc expose service ${APPLICATION_NAME}"
+                    sh "oc new-app --name hello-world https://github.com/IBM/container-service-getting-started-wt --context-dir="Lab 1""
+
+					//sh "oc expose service ${APPLICATION_NAME}"
                 }
             }
         }
