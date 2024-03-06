@@ -71,10 +71,10 @@ pipeline {
                 script {
                     sh "oc project ${OPENSHIFT_PROJECT}"
 
-                    sh "oc new-app --name=${APPLICATION_NAME} ${DOCKER_IMAGE_NAME_TAG}"
+                    //sh "oc new-app --name=${APPLICATION_NAME} ${DOCKER_IMAGE_NAME_TAG}"
 
 
-                    //sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG}"
+                    sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG}"
 
                     //sh "oc apply -f path/to/tuo/file-di-configurazione.yaml"
 
