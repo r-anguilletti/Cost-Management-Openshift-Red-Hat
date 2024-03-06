@@ -8,7 +8,7 @@ pipeline {
         OPENSHIFT_NAME_APP = ""
         DOCKER_IMAGE_NAME_TAG = "docker.io/mongo"
         DOCKER_URL = "registry.connect.redhat.com"
-        APPLICATION_NAME = "MongoDB"
+        APPLICATION_NAME = "mongo"
         CREDENTIALS_ID = "OCP-token"
         CREDENTIALS_DOCKER = "RH-login"
         USERNAME = ""
