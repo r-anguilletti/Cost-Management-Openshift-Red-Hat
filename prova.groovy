@@ -65,6 +65,22 @@ pipeline {
             }
         }*/
 
+        stage('BuildConfig'){
+            steps{
+                script{
+                    sh "oc new-build --name=${APPLICATION_NAME} --docker-image=${DOCKER_IMAGE_NAME_TAG}"
+                }
+            }
+        }
+
+        stage('Start Build'){
+            steps{
+                script{
+                    sh "oc start-build ${APPLICATION_NAME} --follow"
+                }
+            }
+        }
+
         stage('Deploy to OpenShift') {
             steps {
                 script {
@@ -78,8 +94,7 @@ pipeline {
 
                     //sh "oc set image deployment ${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
 
-
-					//sh "oc expose service ${APPLICATION_NAME}"
+					sh "oc expose deployment ${APPLICATION_NAME}"
                 }
             }
         }
