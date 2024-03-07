@@ -65,10 +65,11 @@ pipeline {
             }
         }*/
 
-        /*stage('BuildConfig'){
+        stage('BuildConfig'){
             steps{
                 script{
-                    sh "oc new-build --name=${APPLICATION_NAME} --image=${DOCKER_IMAGE_NAME_TAG}"
+                    sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
+                    sh "oc new-build --name=${APPLICATION_NAME} --image=ubi9/podman:9.3-12"
                 }
             }
         }
@@ -79,7 +80,7 @@ pipeline {
                     sh "oc start-build ${APPLICATION_NAME} --follow"
                 }
             }
-        }*/
+        }
 
         stage('Deploy to OpenShift') {
             steps {
