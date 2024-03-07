@@ -7,7 +7,7 @@ pipeline {
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
         DOCKER_IMAGE_NAME_TAG = "docker.io/library/hello-world"
-        APPLICATION_NAME = "ciao"
+        APPLICATION_NAME = "podman"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
@@ -97,6 +97,8 @@ pipeline {
 					//sh "oc expose deployment ${APPLICATION_NAME}"
 
                     sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
+
+                    sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
                 }
             }
         }
