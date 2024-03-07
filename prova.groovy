@@ -47,10 +47,10 @@ pipeline {
             steps{
                 script{
                     withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
-                            TOKEN = env.TOKEN //il token va aggiornato a mano nelle configurazioni della pipe
+                            sh "oc login -u apikey -p ${env.TOKEN}"
                         }
 
-                        sh "oc login -u apikey -p ${TOKEN}"
+                       
                 }
             }
         }
