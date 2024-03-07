@@ -5,9 +5,6 @@ pipeline {
 		//da modificare nel moento in cui si vuole fare il deployment
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
-        OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/library/hello-world"
-        APPLICATION_NAME = "podman"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
@@ -65,7 +62,7 @@ pipeline {
             }
         }*/
 
-        stage('BuildConfig'){
+        /*stage('BuildConfig'){
             steps{
                 script{
                     sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
@@ -80,7 +77,7 @@ pipeline {
                     sh "oc start-build ${APPLICATION_NAME} --follow"
                 }
             }
-        }
+        }*/
 
         stage('Deploy to OpenShift') {
             steps {
