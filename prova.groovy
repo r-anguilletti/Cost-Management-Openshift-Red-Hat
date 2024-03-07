@@ -6,8 +6,8 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/ranguilletti/jenkins"
-        APPLICATION_NAME = "jk"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/library/hello-world:latest"
+        APPLICATION_NAME = "cm"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
