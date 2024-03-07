@@ -7,7 +7,7 @@ pipeline {
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
         DOCKER_IMAGE_NAME_TAG = "docker.io/library/hello-world"
-        APPLICATION_NAME = "cm"
+        APPLICATION_NAME = "ciao"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
