@@ -6,7 +6,7 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         OPENSHIFT_PROJECT = "hello-world"
         OPENSHIFT_NAME_APP = ""
-        DOCKER_IMAGE_NAME_TAG = "docker.io/library/hello-world:latest"
+        DOCKER_IMAGE_NAME_TAG = "docker.io/library/hello-world"
         APPLICATION_NAME = "cm"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
@@ -68,7 +68,7 @@ pipeline {
         stage('BuildConfig'){
             steps{
                 script{
-                    sh "oc new-build --name=${APPLICATION_NAME} --source-image=${DOCKER_IMAGE_NAME_TAG}"
+                    sh "oc new-build --name=${APPLICATION_NAME} --image=${DOCKER_IMAGE_NAME_TAG}"
                 }
             }
         }
