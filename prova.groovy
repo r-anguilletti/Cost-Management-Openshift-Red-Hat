@@ -88,13 +88,15 @@ pipeline {
 
                     //sh "oc new-app --name=${APPLICATION_NAME} ${DOCKER_IMAGE_NAME_TAG}"
 
-                    sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG} --port=8080"
+                    //sh "oc create deployment ${APPLICATION_NAME}  --image=${DOCKER_IMAGE_NAME_TAG} --port=8080"
 
                     //sh "oc apply -f path/to/tuo/file-di-configurazione.yaml"
 
                     //sh "oc set image deployment ${OPENSHIFT_APP_NAME} ${OPENSHIFT_APP_NAME}=${APP_IMAGE_NAME}:${APP_IMAGE_TAG}"
 
-					sh "oc expose deployment ${APPLICATION_NAME}"
+					//sh "oc expose deployment ${APPLICATION_NAME}"
+
+                    sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
                 }
             }
         }
