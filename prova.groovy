@@ -6,6 +6,7 @@ pipeline {
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
+        POD_NAME=""
     }
 
     /*parameters {
@@ -107,6 +108,31 @@ pipeline {
                 }
             }
         }
+
+        stage('Tagging'){
+            steps{
+                script{
+
+                    //POD_NAME = sh(script: "oc get all | egrep -e \"pod/${TEMPLATE}\" | egrep -v \"build\" | tr -s " " | cut -d " " -f 1")
+
+                    //sh "oc label dc/<name> key=value"  //tag del servizio
+
+                    flag=sh (script: "cat temp.txt | egrep -e \"deploymentconfig\"")
+
+                    if(flag == "deploymentconfig"){
+                        sh "oc label deploymentconfig/${TEMPLATE} ambiente=${Ambiente}"
+                        sh "oc label deploymentconfig/${TEMPLATE} ruolo=${Ruolo}"
+                        sh "oc label deploymentconfig/${TEMPLATE} servizio=${Servizio}"
+                        sh "oc label deploymentconfig/${TEMPLATE} proprietario=${Proprietario}"
+                        sh "oc label deploymentconfig/${TEMPLATE} risorsa=${Risorsa}"
+                        sh "oc label deploymentconfig/${TEMPLATE} tecnologia=${Tecnologia}"
+                        sh "oc label deploymentconfig/${TEMPLATE} stato=${Stato}"
+                    }
+                }
+            }
+        }
+
+
     }
 
     /*post {
