@@ -6,7 +6,7 @@
 
 -Applicazione o servizio
 
-    ."app-wen", "app-api", "notifiche"
+    ."app-web", "app-api", "notifiche"
 
 -Proprietario e team 
 

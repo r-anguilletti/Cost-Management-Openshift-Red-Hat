@@ -4,7 +4,6 @@ pipeline {
     environment {
 		//da modificare nel moento in cui si vuole fare il deployment
         OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
-        OPENSHIFT_PROJECT = "hello-world"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
     }
@@ -94,9 +93,17 @@ pipeline {
 
 					//sh "oc expose deployment ${APPLICATION_NAME}"
 
-                    sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
+                    //oc new-app https://github.com/openshift/ruby-hello-world !!
 
-                    sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
+                    //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
+
+                    if(template){
+                        sh "oc new-app --template=${TEMPLATE}"
+                    }else{
+                        //sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
+
+                    }
+
                 }
             }
         }
