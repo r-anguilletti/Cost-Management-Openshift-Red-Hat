@@ -117,9 +117,11 @@ pipeline {
 
                     //sh "oc label dc/<name> key=value"  //tag del servizio
 
-                    flag=sh (script: "cat temp.txt | egrep -e \"deploymentconfig\"")
+                    //flag=sh (script: "cat temp.txt | egrep -e \"deploymentconfig\"")
+                    
+                    //sh "echo ${flag}"
 
-                    if(flag == "deploymentconfig"){
+                    //if(flag == "deploymentconfig"){
                         sh "oc label deploymentconfig/${TEMPLATE} ambiente=${Ambiente}"
                         sh "oc label deploymentconfig/${TEMPLATE} ruolo=${Ruolo}"
                         sh "oc label deploymentconfig/${TEMPLATE} servizio=${Servizio}"
@@ -127,9 +129,9 @@ pipeline {
                         sh "oc label deploymentconfig/${TEMPLATE} risorsa=${Risorsa}"
                         sh "oc label deploymentconfig/${TEMPLATE} tecnologia=${Tecnologia}"
                         sh "oc label deploymentconfig/${TEMPLATE} stato=${Stato}"
-                    }
+                    //}
 
-                    sh "rm temp.txt"
+                    //sh "rm temp.txt"
                 }
             }
         }
