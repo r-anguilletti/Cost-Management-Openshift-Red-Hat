@@ -98,8 +98,8 @@ pipeline {
 
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
-                    if(template){
-                        sh "oc new-app --template=${TEMPLATE} > temp.txt"
+                    if(NAME){
+                        sh "oc new-app --NAME=${NAME} --name=${NAME}"
                     }else{
                         //sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
 
@@ -113,7 +113,7 @@ pipeline {
             steps{
                 script{
 
-                    //POD_NAME = sh(script: "oc get all | egrep -e \"pod/${TEMPLATE}\" | egrep -v \"build\" | tr -s " " | cut -d " " -f 1")
+                    //POD_NAME = sh(script: "oc get all | egrep -e \"pod/${NAME}\" | egrep -v \"build\" | tr -s " " | cut -d " " -f 1")
 
                     //sh "oc label dc/<name> key=value"  //tag del servizio
 
@@ -122,13 +122,13 @@ pipeline {
                     //sh "echo ${flag}"
 
                     //if(flag == "deploymentconfig"){
-                        sh "oc label deploymentconfig/${TEMPLATE} ambiente=${Ambiente}"
-                        sh "oc label deploymentconfig/${TEMPLATE} ruolo=${Ruolo}"
-                        sh "oc label deploymentconfig/${TEMPLATE} servizio=${Servizio}"
-                        sh "oc label deploymentconfig/${TEMPLATE} proprietario=${Proprietario}"
-                        sh "oc label deploymentconfig/${TEMPLATE} risorsa=${Risorsa}"
-                        sh "oc label deploymentconfig/${TEMPLATE} tecnologia=${Tecnologia}"
-                        sh "oc label deploymentconfig/${TEMPLATE} stato=${Stato}"
+                        sh "oc label deploymentconfig/${NAME} ambiente=${Ambiente}"
+                        sh "oc label deploymentconfig/${NAME} ruolo=${Ruolo}"
+                        sh "oc label deploymentconfig/${NAME} servizio=${Servizio}"
+                        sh "oc label deploymentconfig/${NAME} proprietario=${Proprietario}"
+                        sh "oc label deploymentconfig/${NAME} risorsa=${Risorsa}"
+                        sh "oc label deploymentconfig/${NAME} tecnologia=${Tecnologia}"
+                        sh "oc label deploymentconfig/${NAME} stato=${Stato}"
                     //}
 
                     //sh "rm temp.txt"
