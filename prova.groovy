@@ -99,7 +99,7 @@ pipeline {
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
                     if(NAME){
-                        sh "oc new-app --NAME=${NAME} --name=${NAME}"
+                        sh "oc new-app --template=${TEMPLATE} --name=${NAME}"
                     }else{
                         //sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
 
