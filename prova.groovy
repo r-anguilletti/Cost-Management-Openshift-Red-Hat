@@ -99,7 +99,7 @@ pipeline {
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
                     if(template){
-                        sh "oc new-app --template=${TEMPLATE}"
+                        sh "oc new-app --template=${TEMPLATE} > temp.txt"
                     }else{
                         //sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
 
@@ -128,6 +128,8 @@ pipeline {
                         sh "oc label deploymentconfig/${TEMPLATE} tecnologia=${Tecnologia}"
                         sh "oc label deploymentconfig/${TEMPLATE} stato=${Stato}"
                     }
+
+                    sh "rm temp.txt"
                 }
             }
         }
