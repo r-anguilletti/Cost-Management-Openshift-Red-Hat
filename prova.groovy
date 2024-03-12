@@ -16,29 +16,11 @@ pipeline {
     }*/
 
     stages {
-        /*stage('Clone Repository') {
+        stage('Clone Repository') {
             steps {
                 git 'https://github.com/r-anguilletti/Cost-Management-Openshift-Red-Hat'
             }
-        }*/
-
-        /*stage('Docker login (RH repository)'){
-            steps{
-                script{
-                    withCredentials([usernamePassword(credentialsId: CREDENTIALS_DOCKER, passwordVariable: "PASSWORD", usernameVariable: "USERNAME")]){
-                        sh "docker login -u ${USERNAME} -p ${PASSWORD} ${DOCKER_URL}"
-                    }
-                }
-            }
         }
-
-        stage('Download docker image') {
-            steps {
-                script {
-                    sh "docker pull ${DOCKER_IMAGE_NAME_TAG}"
-                }
-            }
-        }*/
 
         stage('Login to OCP'){
             steps{
@@ -98,6 +80,8 @@ pipeline {
 
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
+
+                    //sh "oc create -f <file, path> -n <openshift_project>" 
                     if(Nome){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
                     }else{
@@ -128,6 +112,22 @@ pipeline {
                     sh "oc label deploymentconfig/${Nome} risorsa=${Risorsa}"
                     sh "oc label deploymentconfig/${Nome} tecnologia=${Tecnologia}"
                     sh "oc label deploymentconfig/${Nome} stato=${Stato}"
+
+                    //label dei pod con script bash
+
+                    /*
+
+                    sh "oc get pods > temp.txt"
+                    pod=sh (script: "cat temp.txt | egrep -e \"${NOME}\" | egrep -e \"Running\" | tr -s " " | cut -d " " -f 1", returnStdout: True).trim()
+                    sh "oc label pod/${pod} ambiente=${Ambiente}"
+                    sh "oc label pod/${pod} ruolo=${Ruolo}"
+                    sh "oc label pod/${pod} servizio=${Servizio}"
+                    sh "oc label pod/${pod} proprietario=${Proprietario}"
+                    sh "oc label pod/${pod} risorsa=${Risorsa}"
+                    sh "oc label pod/${pod} tecnologia=${Tecnologia}"
+                    sh "oc label pod/${pod} stato=${Stato}"
+
+                    */
 
                     //sh "rm temp.txt"
                 }
