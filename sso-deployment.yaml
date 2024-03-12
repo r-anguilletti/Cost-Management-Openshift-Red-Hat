@@ -1,0 +1,139 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: sso
+  generation: 2
+  namespace: test2
+  labels:
+    proprietario: owner
+    app: sso
+    app.kubernetes.io/instance: sso
+    tecnologia: ruby
+    ambiente: test
+    risorsa: rete
+    servizio: app-web
+    app.kubernetes.io/component: sso
+    ruolo: frontend
+    application: sso
+    rhsso: 7.5.3.GA
+    template: sso75-ocp4-x509-https
+    stato: attiva
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      timeoutSeconds: 100
+      intervalSeconds: 5
+      updatePeriodSeconds: 5
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    matchLabels:
+      deployment: sso
+  template:
+    metadata:
+      name: sso
+      creationTimestamp: null
+      labels:
+        application: sso
+        deployment: sso
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      volumes:
+        - name: sso-x509-https-volume
+          secret:
+            secretName: sso-x509-https-secret
+            defaultMode: 420
+        - name: sso-x509-jgroups-volume
+          secret:
+            secretName: sso-x509-jgroups-secret
+            defaultMode: 420
+        - name: service-ca
+          configMap:
+            name: sso-service-ca
+            defaultMode: 420
+      containers:
+        - resources:
+            limits:
+              memory: 1Gi
+          readinessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - '-c'
+                - /opt/eap/bin/readinessProbe.sh
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: sso
+          livenessProbe:
+            exec:
+              command:
+                - /bin/bash
+                - '-c'
+                - /opt/eap/bin/livenessProbe.sh
+            initialDelaySeconds: 60
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: SSO_HOSTNAME
+            - name: DB_MIN_POOL_SIZE
+            - name: DB_MAX_POOL_SIZE
+            - name: DB_TX_ISOLATION
+            - name: JGROUPS_PING_PROTOCOL
+              value: openshift.DNS_PING
+            - name: OPENSHIFT_DNS_PING_SERVICE_NAME
+              value: sso-ping
+            - name: OPENSHIFT_DNS_PING_SERVICE_PORT
+              value: '8888'
+            - name: X509_CA_BUNDLE
+              value: >-
+                /var/run/configmaps/service-ca/service-ca.crt
+                /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            - name: JGROUPS_CLUSTER_PASSWORD
+              value: BqHjgeXgnJ5C1q2wnclBOk1FaNltv6oE
+            - name: SSO_ADMIN_USERNAME
+              value: X8NH4OuM
+            - name: SSO_ADMIN_PASSWORD
+              value: kfhOi1WHrR0B8fUBe2DM2G5HpEY2Pvxf
+            - name: SSO_REALM
+            - name: SSO_SERVICE_USERNAME
+            - name: SSO_SERVICE_PASSWORD
+          ports:
+            - name: jolokia
+              containerPort: 8778
+              protocol: TCP
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+            - name: ping
+              containerPort: 8888
+              protocol: TCP
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: sso-x509-https-volume
+              readOnly: true
+              mountPath: /etc/x509/https
+            - name: sso-x509-jgroups-volume
+              readOnly: true
+              mountPath: /etc/x509/jgroups
+            - name: service-ca
+              readOnly: true
+              mountPath: /var/run/configmaps/service-ca
+          terminationMessagePolicy: File
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/sso75-openshift-rhel8@sha256:5522021e9081fa0f0163f75afedb9efaaad25c2a1dde6ce0fab3142ddcc7dd60
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 75
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

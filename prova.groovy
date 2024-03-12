@@ -121,15 +121,13 @@ pipeline {
                     
                     //sh "echo ${flag}"
 
-                    //if(flag == "deploymentconfig"){
-                        sh "oc label deploymentconfig/${Nome} ambiente=${Ambiente}"
-                        sh "oc label deploymentconfig/${Nome} ruolo=${Ruolo}"
-                        sh "oc label deploymentconfig/${Nome} servizio=${Servizio}"
-                        sh "oc label deploymentconfig/${Nome} proprietario=${Proprietario}"
-                        sh "oc label deploymentconfig/${Nome} risorsa=${Risorsa}"
-                        sh "oc label deploymentconfig/${Nome} tecnologia=${Tecnologia}"
-                        sh "oc label deploymentconfig/${Nome} stato=${Stato}"
-                    //}
+                    sh "oc label deploymentconfig/${Nome} ambiente=${Ambiente}"
+                    sh "oc label deploymentconfig/${Nome} ruolo=${Ruolo}"
+                    sh "oc label deploymentconfig/${Nome} servizio=${Servizio}"
+                    sh "oc label deploymentconfig/${Nome} proprietario=${Proprietario}"
+                    sh "oc label deploymentconfig/${Nome} risorsa=${Risorsa}"
+                    sh "oc label deploymentconfig/${Nome} tecnologia=${Tecnologia}"
+                    sh "oc label deploymentconfig/${Nome} stato=${Stato}"
 
                     //sh "rm temp.txt"
                 }
