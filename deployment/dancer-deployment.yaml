@@ -1,0 +1,79 @@
+kind: Deployment
+apiVersion: apps/v1
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      timeoutSeconds: 100
+      intervalSeconds: 5
+      updatePeriodSeconds: 5
+  selector:
+    matchLabels:
+      deployment: dancer-mysql-persistent
+  template:
+    metadata:
+      name: dancer-mysql-persistent
+      creationTimestamp: null
+      labels:
+        name: dancer-mysql-persistent
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      containers:
+        - resources:
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 3
+            timeoutSeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: dancer-mysql-persistent
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: DATABASE_SERVICE_NAME
+              value: database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dancer-mysql-persistent
+                  key: database-user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dancer-mysql-persistent
+                  key: database-password
+            - name: MYSQL_DATABASE
+              value: sampledb
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: dancer-mysql-persistent
+                  key: keybase
+            - name: PERL_APACHE2_RELOAD
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          terminationMessagePolicy: File
+          image: ' '
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

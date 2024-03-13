@@ -1,0 +1,83 @@
+kind: Deployment
+apiVersion: apps/v1
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      timeoutSeconds: 100
+      intervalSeconds: 5
+      updatePeriodSeconds: 5
+  selector:
+    matchLabels:
+      deployment: database
+  template:
+    metadata:
+      name: database
+      creationTimestamp: null
+      labels:
+        name: database
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      volumes:
+        - name: database-data
+          persistentVolumeClaim:
+            claimName: database
+      containers:
+        - resources:
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - '-i'
+                - '-c'
+                - >-
+                  MYSQL_PWD='MCG3pgMF' mysql -h 127.0.0.1 -u user4JM -D sampledb
+                  -e 'SELECT 1'
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: mysql
+          livenessProbe:
+            tcpSocket:
+              port: 3306
+            initialDelaySeconds: 30
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: dancer-mysql-persistent
+                  key: database-user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dancer-mysql-persistent
+                  key: database-password
+            - name: MYSQL_DATABASE
+              value: sampledb
+            - name: MYSQL_DEFAULT_AUTHENTICATION_PLUGIN
+              value: mysql_native_password
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: database-data
+              mountPath: /var/lib/mysql/data
+          terminationMessagePolicy: File
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/openshift/mysql@sha256:94cc8e52c148858add4d32c566d07e58754f97fefa8d199ae79d33cc40b26b47
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

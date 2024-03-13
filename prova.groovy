@@ -81,13 +81,17 @@ pipeline {
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
 
-                    //sh "oc create -f <file, path> -n <openshift_project>" 
-                    if(Nome){
+                    
+                    /*if(Nome){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
                     }else{
                         //sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
 
-                    }
+                    }*/
+
+                    //importante dare sempre lo stesso formato di nome al file yaml
+                    
+                    sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
 
                 }
             }
@@ -96,14 +100,6 @@ pipeline {
         stage('Tagging'){
             steps{
                 script{
-
-                    //POD_NAME = sh(script: "oc get all | egrep -e \"pod/${Nome}\" | egrep -v \"build\" | tr -s " " | cut -d " " -f 1")
-
-                    //sh "oc label dc/<name> key=value"  //tag del servizio
-
-                    //flag=sh (script: "cat temp.txt | egrep -e \"deploymentconfig\"")
-                    
-                    //sh "echo ${flag}"
 
                     sh "oc label deploymentconfig/${Nome} ambiente=${Ambiente}"
                     sh "oc label deploymentconfig/${Nome} ruolo=${Ruolo}"
