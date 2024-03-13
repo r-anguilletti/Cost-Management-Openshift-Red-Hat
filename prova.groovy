@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/r-anguilletti/Cost-Management-Openshift-Red-Hat'
+                git branch: 'main', url: "https://github.com/r-anguilletti/Cost-Management-Openshift-Red-Hat"
             }
         }
 
