@@ -1,5 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
+metadata:
+  name: database
 spec:
   strategy:
     type: RollingUpdate
@@ -15,7 +17,8 @@ spec:
       name: database
       creationTimestamp: null
       labels:
-        name: database
+        application: database
+        deployment: database
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
     spec:
