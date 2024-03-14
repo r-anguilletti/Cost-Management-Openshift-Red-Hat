@@ -101,19 +101,18 @@ pipeline {
             steps{
                 script{
 
-                    sh "oc label deploymentconfig/${Nome} ambiente=${Ambiente}"
+                    /*sh "oc label deploymentconfig/${Nome} ambiente=${Ambiente}"
                     sh "oc label deploymentconfig/${Nome} ruolo=${Ruolo}"
                     sh "oc label deploymentconfig/${Nome} servizio=${Servizio}"
                     sh "oc label deploymentconfig/${Nome} proprietario=${Proprietario}"
                     sh "oc label deploymentconfig/${Nome} risorsa=${Risorsa}"
                     sh "oc label deploymentconfig/${Nome} tecnologia=${Tecnologia}"
-                    sh "oc label deploymentconfig/${Nome} stato=${Stato}"
+                    sh "oc label deploymentconfig/${Nome} stato=${Stato}"*/
 
                     //label dei pod con script bash
 
-                    /*
 
-                    sh "oc get pods > temp.txt"
+                    sh "oc get pods > pod.txt"
                     def pod=sh (script: "cat temp.txt | egrep -e \"${Nome}\" | egrep -e \"Running\" | tr -s \" \" | cut -d \" \" -f 1", returnStdout: true)
                     sh "oc label pod/${pod} ambiente=${Ambiente}"
                     sh "oc label pod/${pod} ruolo=${Ruolo}"
@@ -123,7 +122,6 @@ pipeline {
                     sh "oc label pod/${pod} tecnologia=${Tecnologia}"
                     sh "oc label pod/${pod} stato=${Stato}"
 
-                    */
 
                     
                 }
