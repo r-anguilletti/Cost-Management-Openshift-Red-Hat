@@ -82,17 +82,16 @@ pipeline {
 
 
                     
-                    /*if(Nome){
+                    if(${template}){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
+                        sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
                     }else{
-                        //sh "oc create deployment ${APPLICATION_NAME}  --image=ubi9/podman:9.3-12 --port=8080"
 
-                    }*/
-
-                    //importante dare sempre lo stesso formato di nome al file yaml
+                        //importante dare sempre lo stesso formato di nome al file yaml
                     
-                    sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
-                    sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
+                        sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
+                        sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
+                    }
 
                 }
             }
