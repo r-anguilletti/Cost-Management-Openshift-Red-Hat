@@ -1,0 +1,45 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  name: react
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      timeoutSeconds: 100
+      intervalSeconds: 5
+      updatePeriodSeconds: 5
+  selector:
+    matchLabels:
+      deployment: react
+  template:
+    metadata:
+      name: react
+      creationTimestamp: null
+      labels:
+        application: react
+        deployment: react
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      containers:
+        - name: react-web-app
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/hello-world/react-web-app@sha256:8711324008a22eb1a9a0c3d5e89f9f1bd1bf16c185ccc42cd3ef47fdcb6f5c62
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              memory: 512Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+          securityContext:
+            privileged: false
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
