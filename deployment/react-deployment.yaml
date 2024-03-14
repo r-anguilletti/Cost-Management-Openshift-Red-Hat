@@ -150,7 +150,6 @@ spec:
           - react-web-app
         from:
           kind: ImageStreamTag
-          namespace: hello-world
           name: 'react-web-app:latest'
         lastTriggeredImage: >-
           image-registry.openshift-image-registry.svc:5000/hello-world/react-web-app@sha256:8711324008a22eb1a9a0c3d5e89f9f1bd1bf16c185ccc42cd3ef47fdcb6f5c62
