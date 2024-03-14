@@ -16,8 +16,6 @@ spec:
     metadata:
       name: django-psql-persistent
       creationTimestamp: null
-      labels:
-        name: django-psql-persistent
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
     spec:
