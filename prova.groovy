@@ -92,7 +92,7 @@ pipeline {
                     //importante dare sempre lo stesso formato di nome al file yaml
                     
                     sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
-                    sh "sleep 30" //aggiunto per dare il tempo al deployment
+                    sh "sleep 30" //aggiunto per dare il tempo al deployment di creare il pod associato
 
                 }
             }

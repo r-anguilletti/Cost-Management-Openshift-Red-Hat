@@ -1,5 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
+metadata:
+  name: postgresql
 spec:
   strategy:
     rollingUpdate:
@@ -14,7 +16,7 @@ spec:
       name: postgresql
       creationTimestamp: null
       labels:
-        name: postgresql
+        application: postgresql
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
     spec:
