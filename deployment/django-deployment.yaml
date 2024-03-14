@@ -14,7 +14,7 @@ spec:
       deployment: django
   template:
     metadata:
-      name: django-psql-persistent
+      name: django
       creationTimestamp: null
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
