@@ -2,22 +2,6 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: sso
-  generation: 2
-  namespace: test2
-  labels:
-    proprietario: owner
-    app: sso
-    app.kubernetes.io/instance: sso
-    tecnologia: ruby
-    ambiente: test
-    risorsa: rete
-    servizio: app-web
-    app.kubernetes.io/component: sso
-    ruolo: frontend
-    application: sso
-    rhsso: 7.5.3.GA
-    template: sso75-ocp4-x509-https
-    stato: attiva
 spec:
   strategy:
     type: RollingUpdate
