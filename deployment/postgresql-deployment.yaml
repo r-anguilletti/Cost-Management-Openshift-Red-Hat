@@ -17,6 +17,7 @@ spec:
       creationTimestamp: null
       labels:
         application: postgresql
+        deployment: postgresql
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
     spec:
