@@ -1,24 +1,169 @@
-kind: Deployment
-apiVersion: apps/v1
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
 metadata:
-  name: react
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  resourceVersion: '6756309'
+  name: react-web-app
+  uid: e71522f9-8044-4eee-bb2a-b62c81299e5f
+  creationTimestamp: '2024-03-14T15:33:33Z'
+  generation: 2
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2024-03-14T15:33:33Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+        'f:spec':
+          'f:replicas': {}
+          'f:selector':
+            .: {}
+            'f:app': {}
+          'f:strategy':
+            'f:activeDeadlineSeconds': {}
+            'f:rollingParams':
+              .: {}
+              'f:intervalSeconds': {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+              'f:timeoutSeconds': {}
+              'f:updatePeriodSeconds': {}
+            'f:type': {}
+          'f:template':
+            .: {}
+            'f:metadata':
+              .: {}
+              'f:annotations':
+                .: {}
+                'f:openshift.io/generated-by': {}
+              'f:creationTimestamp': {}
+              'f:labels':
+                .: {}
+                'f:app': {}
+            'f:spec':
+              .: {}
+              'f:containers':
+                .: {}
+                'k:{"name":"react-web-app"}':
+                  .: {}
+                  'f:imagePullPolicy': {}
+                  'f:name': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":3000,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                  'f:resources':
+                    .: {}
+                    'f:limits':
+                      .: {}
+                      'f:memory': {}
+                  'f:securityContext':
+                    .: {}
+                    'f:privileged': {}
+                  'f:terminationMessagePath': {}
+                  'f:terminationMessagePolicy': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2024-03-14T15:36:07Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:template':
+            'f:spec':
+              'f:containers':
+                'k:{"name":"react-web-app"}':
+                  'f:image': {}
+          'f:triggers': {}
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: apps.openshift.io/v1
+      time: '2024-03-14T15:36:26Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:updatedReplicas': {}
+          'f:readyReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:details':
+            .: {}
+            'f:causes': {}
+            'f:message': {}
+          'f:replicas': {}
+          'f:availableReplicas': {}
+          'f:observedGeneration': {}
+          'f:unavailableReplicas': {}
+          'f:latestVersion': {}
+      subresource: status
+  namespace: hello-world
+  labels:
+    app: react-web-app
 spec:
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      timeoutSeconds: 100
-      intervalSeconds: 5
-      updatePeriodSeconds: 5
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - react-web-app
+        from:
+          kind: ImageStreamTag
+          namespace: hello-world
+          name: 'react-web-app:latest'
+        lastTriggeredImage: >-
+          image-registry.openshift-image-registry.svc:5000/hello-world/react-web-app@sha256:8711324008a22eb1a9a0c3d5e89f9f1bd1bf16c185ccc42cd3ef47fdcb6f5c62
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
   selector:
-    matchLabels:
-      deployment: react
+    app: react-web-app
   template:
     metadata:
-      name: react
       creationTimestamp: null
       labels:
-        application: react
-        deployment: react
+        app: react-web-app
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
     spec:
@@ -43,3 +188,27 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
+status:
+  observedGeneration: 2
+  details:
+    message: config change
+    causes:
+      - type: ConfigChange
+  availableReplicas: 1
+  unavailableReplicas: 0
+  latestVersion: 1
+  updatedReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2024-03-14T15:36:24Z'
+      lastTransitionTime: '2024-03-14T15:36:24Z'
+      message: Deployment config has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2024-03-14T15:36:26Z'
+      lastTransitionTime: '2024-03-14T15:36:10Z'
+      reason: NewReplicationControllerAvailable
+      message: replication controller "react-web-app-1" successfully rolled out
+  replicas: 1
+  readyReplicas: 1
