@@ -91,7 +91,7 @@ pipeline {
 
                     //importante dare sempre lo stesso formato di nome al file yaml
                     
-                    sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT} --name" 
+                    sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
 
                 }
             }
