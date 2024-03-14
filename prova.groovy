@@ -114,7 +114,7 @@ pipeline {
 
 
                     //sh "oc get pods > pod.txt"
-                    def pod=sh (script: "oc get pods | egrep -e \"${Nome}\" | egrep -e \"Running\" | cut -d \" \" -f 1", returnStdout: true)
+                    def pod=sh (script: "oc get pods | egrep -e \"${Nome}\" | egrep -e \"Running\" | cut -d \" \" -f 1", returnStdout: true).trim()
                     sh "oc label pod/${pod} ambiente=${Ambiente}"
                     sh "oc label pod/${pod} ruolo=${Ruolo}"
                     sh "oc label pod/${pod} servizio=${Servizio}"
