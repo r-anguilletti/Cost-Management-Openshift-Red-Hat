@@ -59,27 +59,3 @@ spec:
       dnsPolicy: ClusterFirst
       securityContext: {}
       schedulerName: default-scheduler
-status:
-  observedGeneration: 2
-  details:
-    message: config change
-    causes:
-      - type: ConfigChange
-  availableReplicas: 1
-  unavailableReplicas: 0
-  latestVersion: 1
-  updatedReplicas: 1
-  conditions:
-    - type: Available
-      status: 'True'
-      lastUpdateTime: '2024-03-14T15:36:24Z'
-      lastTransitionTime: '2024-03-14T15:36:24Z'
-      message: Deployment config has minimum availability.
-    - type: Progressing
-      status: 'True'
-      lastUpdateTime: '2024-03-14T15:36:26Z'
-      lastTransitionTime: '2024-03-14T15:36:10Z'
-      reason: NewReplicationControllerAvailable
-      message: replication controller "react-web-app-1" successfully rolled out
-  replicas: 1
-  readyReplicas: 1
