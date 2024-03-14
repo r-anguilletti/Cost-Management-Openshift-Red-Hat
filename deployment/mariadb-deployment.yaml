@@ -18,8 +18,7 @@ spec:
   template:
     metadata:
       creationTimestamp: null
-      labels:
-        name: mariadb
+      name: mariadb
       annotations:
         openshift.io/generated-by: OpenShiftNewApp
     spec:
