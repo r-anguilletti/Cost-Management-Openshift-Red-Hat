@@ -78,7 +78,8 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: ' '
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/test1/django-psql-persistent@sha256:df2fa22a3a9aa6d4ef84142dd0d5b56b6ca540b59a981752f55048ee6bb96bdb
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
