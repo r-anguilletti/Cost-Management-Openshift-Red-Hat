@@ -9,12 +9,6 @@ pipeline {
         POD_NAME=""
     }
 
-    /*parameters {
-        string(name: 'c', defaultValue: 'ciao') //definire solo i paramentri che potrebbero servire e non sono stati passati da configurazione
-        string(name: 'Ambiente', defaultValue: 'none')
-        string(name: 'Ruolo', defaultValue: 'none')
-    }*/
-
     stages {
         stage('Clone Repository') {
             steps {
@@ -33,33 +27,6 @@ pipeline {
                 }
             }
         }
-
-        /*stage('Access to parameters'){
-            steps{
-                script{
-                    def prova=params.c
-                    echo "${prova}"
-                    echo "${c}" //posso usare anche solo il nome del parametro nella definizione
-                }
-            }
-        }*/
-
-        /*stage('BuildConfig'){
-            steps{
-                script{
-                    sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
-                    sh "oc new-build --name=${APPLICATION_NAME} --image=ubi9/podman:9.3-12"
-                }
-            }
-        }
-
-        stage('Start Build'){
-            steps{
-                script{
-                    sh "oc start-build ${APPLICATION_NAME} --follow"
-                }
-            }
-        }*/
 
         stage('Deploy to OpenShift') {
             steps {
@@ -80,7 +47,6 @@ pipeline {
 
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
-
                     
                     if(template == true){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
@@ -92,7 +58,6 @@ pipeline {
                         sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
                         sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
                     }
-
                 }
             }
         }
@@ -111,7 +76,6 @@ pipeline {
 
                     //label dei pod con script bash
 
-
                     //sh "oc get pods > pod.txt"
                     def pod=sh (script: "oc get pods | egrep -e \"${Nome}\" | egrep -e \"Running\" | cut -d \" \" -f 1", returnStdout: true).trim()
                     sh "oc label pod/${pod} ambiente=${Ambiente}"
@@ -121,14 +85,9 @@ pipeline {
                     sh "oc label pod/${pod} risorsa=${Risorsa}"
                     sh "oc label pod/${pod} tecnologia=${Tecnologia}"
                     sh "oc label pod/${pod} stato=${Stato}"
-
-
-                    
                 }
             }
         }
-
-
     }
 
     /*post {

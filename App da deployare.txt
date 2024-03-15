@@ -20,4 +20,4 @@ Servizio di Elaborazione Batch:
 
 Cache:
 
-    Un servizio di caching, come Redis, per migliorare le prestazioni dell'applicazione
+    Un servizio di caching, come Redis, per migliorare le prestazioni dell'applicazione (redis => depolymentconfig da template)
