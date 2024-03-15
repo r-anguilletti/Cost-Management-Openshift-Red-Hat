@@ -1,0 +1,86 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: django-psql-persistent
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      timeoutSeconds: 100
+      intervalSeconds: 5
+      updatePeriodSeconds: 5
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  matchLabels:
+      deployment: django-psql-persistent
+  template:
+    metadata:
+      name: django-psql-persistent
+      creationTimestamp: null
+      labels:
+        application: django-psql-persistent
+        deployment: django-psql-persistent
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      containers:
+        - resources:
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 3
+            timeoutSeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: django-psql-persistent
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 3
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: DATABASE_SERVICE_NAME
+              value: postgresql
+            - name: DATABASE_ENGINE
+              value: postgresql
+            - name: DATABASE_NAME
+              value: default
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: django-psql-persistent
+                  key: database-user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: django-psql-persistent
+                  key: database-password
+            - name: APP_CONFIG
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: django-psql-persistent
+                  key: django-secret-key
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          terminationMessagePolicy: File
+          image: ' '
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
