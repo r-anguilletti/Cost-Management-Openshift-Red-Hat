@@ -82,7 +82,7 @@ pipeline {
 
 
                     
-                    if(template = true){
+                    if(template == true){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
                         sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
                     }else{
