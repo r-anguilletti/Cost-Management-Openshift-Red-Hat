@@ -1,14 +1,14 @@
 Frontend Web:
 
-    React, Angular o Vue
+    React, Angular o Vue (sso => file yaml) (react => deploymentconfig da template)
 
 Backend API:
 
-    Un servizio API che gestisce la logica di business. Implementato con Node.js, Django
+    Un servizio API che gestisce la logica di business. Implementato con Node.js, Django (django => deploymentconfig da template)
 
 Database:
 
-    Un database relazionale o NoSQL per archiviare i dati dell'applicazione. Ad esempio, PostgreSQL o MongoDB
+    Un database relazionale o NoSQL per archiviare i dati dell'applicazione. Ad esempio, PostgreSQL o MongoDB (mariadb => file yaml)
 
 Servizio di Notifiche:
 
