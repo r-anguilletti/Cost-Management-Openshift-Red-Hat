@@ -1,6 +1,6 @@
 Frontend Web:
 
-    React, Angular o Vue (sso => file yaml) (react => deploymentconfig da template)
+    React, Angular o Vue (sso => file yaml) (react => deploymentconfig da template) (nginx => deploymentconfig da template)
 
 Backend API:
 
