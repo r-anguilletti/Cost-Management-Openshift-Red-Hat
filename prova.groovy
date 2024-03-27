@@ -3,7 +3,7 @@ pipeline {
 
     environment {
 		//da modificare nel moento in cui si vuole fare il deployment
-        OPENSHIFT_URL = "https://c100-e.eu-de.containers.cloud.ibm.com:31696"
+        OPENSHIFT_URL = "https://c115-e.eu-de.containers.cloud.ibm.com:31458"
         CREDENTIALS_ID = "OCP-API-KEY"
         TOKEN=""
         POD_NAME=""
@@ -20,7 +20,7 @@ pipeline {
             steps{
                 script{
                     withCredentials([string(credentialsId: CREDENTIALS_ID, variable: "TOKEN")]){
-                            sh "oc login -u apikey -p ${env.TOKEN}"
+                            sh "oc login ${OPENSHIFT_URL} -u apikey -p ${env.TOKEN}"
                         }
 
                        
