@@ -48,15 +48,13 @@ pipeline {
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
                     
-                    if(flag == true){
+                    if(flag == "true"){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
-                        sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
+                        sh "sleep 180" //aggiunto per dare il tempo al deployment di creare il pod associato
                     }else{
-
                         //importante dare sempre lo stesso formato di nome al file yaml
-                    
                         sh "oc create -f deployment/${Nome}-deployment.yaml -n ${OPENSHIFT_PROJECT}" 
-                        sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
+                        sh "sleep 180" //aggiunto per dare il tempo al deployment di creare il pod associato
                     }
                 }
             }
