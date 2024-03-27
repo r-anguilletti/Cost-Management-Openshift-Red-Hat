@@ -48,7 +48,7 @@ pipeline {
                     //sh "oc import-image ubi9/podman:9.3-12 --from=registry.access.redhat.com/ubi9/podman:9.3-12 --confirm"
 
                     
-                    if(template == true){
+                    if(flag == true){
                         sh "oc new-app --template=${TEMPLATE} --name=${Nome}"
                         sh "sleep 120" //aggiunto per dare il tempo al deployment di creare il pod associato
                     }else{
